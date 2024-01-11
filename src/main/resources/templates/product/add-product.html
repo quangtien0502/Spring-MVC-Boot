@@ -23,32 +23,17 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-<a class="btn btn-primary" th:href="@{/product/add-product/{id}(id=${category_id})}" role="button">Add new</a>
-<table class="table">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Category Name</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="item:${list}">
-        <td th:text="${item.name}"></td>
-        <td th:text="${item.price}"></td>
-        <td th:text="${item.category.categoryName}"></td>
-        <td>
-            <a class="btn btn-danger" th:href="@{/deleteProduct/{id}(id=${item.id})}" role="button">Delete</a>
-            <a class="btn btn-success" th:href="@{/updateProduct/{id}(id=${item.id})}" role="button">Update</a>
-        </td>
-    </tr>
-    <tr>
-        <td scope="row"></td>
-        <td></td>
-        <td></td>
-    </tr>
-    </tbody>
-</table>
+<form method="post" th:action="@{/product/add-product}" th:object="${product}">
+    <div class="form-group">
+        <label>Product Name</label>
+        <input type="text" class="form-control" th:field="*{name}">
+        <label>Product Price</label>
+        <input type="text" class="form-control" th:field="*{price}">
+        <label>Category Name</label>
+        <input type="text" readonly="readonly" class="form-control" th:field="*{category.categoryName}">
+        <input type="text" hidden="hidden" class="form-control" th:field="*{category.id}">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 </body>
 </html>

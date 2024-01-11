@@ -15,6 +15,7 @@ public class Product {
     private Long id;
     private String name;
     private Float price;
+    private String image;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
