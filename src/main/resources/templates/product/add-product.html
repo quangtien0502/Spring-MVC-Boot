@@ -23,7 +23,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-<form method="post" th:action="@{/product/add-product}" th:object="${product}">
+<form method="post" th:action="@{/product/add-product}" th:object="${product}" enctype="multipart/form-data">
     <div class="form-group">
         <label>Product Name</label>
         <input type="text" class="form-control" th:field="*{name}">
@@ -32,6 +32,10 @@
         <label>Category Name</label>
         <input type="text" readonly="readonly" class="form-control" th:field="*{category.categoryName}">
         <input type="text" hidden="hidden" class="form-control" th:field="*{category.id}">
+    </div>
+    <div class="form-group">
+        <label>Avatar:</label>
+        <input  type="file" class="form-control" id="user" name="img" />
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

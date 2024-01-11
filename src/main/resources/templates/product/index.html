@@ -30,6 +30,8 @@
         <th>Name</th>
         <th>Price</th>
         <th>Category Name</th>
+        <th>Quantity</th>
+        <th>Image</th>
         <th>Action</th>
     </tr>
     </thead>
@@ -38,6 +40,10 @@
         <td th:text="${item.name}"></td>
         <td th:text="${item.price}"></td>
         <td th:text="${item.category.categoryName}"></td>
+        <td th:text="${item.quantity}"></td>
+        <td>
+            <img th:src="@{/{image}(image=${item.image})}" alt="dell-xps-nothing" width="150px"/>
+        </td>
         <td>
             <a class="btn btn-danger" th:href="@{/deleteProduct/{id}(id=${item.id})}" role="button">Delete</a>
             <a class="btn btn-success" th:href="@{/updateProduct/{id}(id=${item.id})}" role="button">Update</a>

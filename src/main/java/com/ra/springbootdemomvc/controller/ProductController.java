@@ -5,24 +5,29 @@ import com.ra.springbootdemomvc.model.entity.Product;
 import com.ra.springbootdemomvc.service.CategoryService;
 import com.ra.springbootdemomvc.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
 public class ProductController {
+    @Value("${path-upload}")
+    private String pathUpload;
+
     @Autowired
     private ProductService productService;
 
     @Autowired
     private CategoryService categoryService;
 
+    //todo: list quantity
     @GetMapping("/product/{category_id}")
     public String product(Model model, @PathVariable Long category_id){
         List<Product> list= productService.findProductByCategoryId(category_id);
@@ -41,7 +46,14 @@ public class ProductController {
     }
 
     @PostMapping("/product/add-product")
-    public String addProduct(@ModelAttribute("product") Product product){
+    public String addProduct(@ModelAttribute("product") Product product,@RequestParam("img") MultipartFile file){
+        String fileName=file.getOriginalFilename();
+        try {
+            FileCopyUtils.copy(file.getBytes(),new File(pathUpload+fileName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        product.setImage(fileName);
         productService.save(product);
         return "redirect:/category";
     }
