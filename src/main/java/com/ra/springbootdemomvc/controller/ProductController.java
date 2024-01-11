@@ -58,8 +58,17 @@ public class ProductController {
     @GetMapping("/updateProduct/{id}")
     public String updateProduct(@PathVariable Long id,Model model){
         Product product = productService.findById(id);
+        List<Category> categories=categoryService.getAll();
         model.addAttribute("product",product);
+        model.addAttribute("categories",categories);
         return "product/update-product";
+    }
+
+    @PostMapping("/update-product")
+    public String updateProduct(@ModelAttribute Product product){
+        Product product1=productService.save(product);
+        Long categoryId=product1.getCategory().getId();
+        return "redirect:/product/"+categoryId;
     }
 
 }
