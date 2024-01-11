@@ -10,4 +10,6 @@ public interface ProductService{
     Product save(Product product);
     Product findById(Long id);
     void delete(Long id);
+    public List<Product> findProductByCategoryId(Long category_id);
+
 }

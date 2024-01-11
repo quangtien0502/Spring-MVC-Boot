@@ -28,18 +28,19 @@
     <thead>
     <tr>
         <th>Name</th>
-        <th>Status</th>
+        <th>Price</th>
+        <th>Category Name</th>
         <th>Action</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="item:${list}">
-        <td th:text="${item.categoryName}"></td>
-        <td th:text="${item.status} ? 'Active':'InActive'"></td>
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.price}"></td>
+        <td th:text="${item.category.categoryName}"></td>
         <td>
-            <a class="btn btn-danger" th:href="@{/deleteCategory/{id}(id=${item.id})}" role="button">Delete</a>
-            <a class="btn btn-success" th:href="@{/updateCategory/{id}(id=${item.id})}" role="button">Update</a>
-            <a class="btn btn-info" th:href="@{/product/{id}(id=${item.id})}" role="button">Detail</a>
+            <a class="btn btn-danger" th:href="@{/deleteProduct/{id}(id=${item.id})}" role="button">Delete</a>
+            <a class="btn btn-success" th:href="@{/updateProduct/{id}(id=${item.id})}" role="button">Update</a>
         </td>
     </tr>
     <tr>
